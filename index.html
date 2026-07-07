@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Despacho Jurídico Herrera</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --ink:#1C2333;
+    --ink-soft:#2A3348;
+    --parchment:#EFE9DC;
+    --parchment-deep:#E4DCC7;
+    --oxblood:#7A2320;
+    --oxblood-soft:#93332E;
+    --brass:#A8823C;
+    --charcoal:#2A2A28;
+    --paper-line:#D8CFB8;
+    --cream-text:#F3EEE1;
+    --max:1180px;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--parchment);
+    color:var(--charcoal);
+    font-family:'Inter', sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  h1,h2,h3,h4{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    color:var(--ink);
+    line-height:1.1;
+  }
+
+  .mono{
+    font-family:'IBM Plex Mono', monospace;
+    letter-spacing:0.04em;
+  }
+
+  a{color:inherit; text-decoration:none;}
+
+  .wrap{max-width:var(--max); margin:0 auto; padding:0 32px;}
+
+  img{max-width:100%; display:block;}
+
+  ::selection{background:var(--oxblood); color:var(--cream-text);}
+
+  :focus-visible{outline:2px solid var(--oxblood); outline-offset:3px;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important;}
+  }
+
+  /* ---------- STAMP SIGNATURE ELEMENT ---------- */
+  .stamp-badge{
+    position:relative;
+    width:64px; height:64px;
+    border-radius:50%;
+    border:2px solid var(--oxblood);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--oxblood);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.85rem;
+    transform:rotate(-6deg);
+    filter:url(#inkTexture);
+    opacity:0.92;
+  }
+  .stamp-badge::before{
+    content:"";
+    position:absolute;
+    inset:6px;
+    border:1px solid var(--oxblood);
+    border-radius:50%;
+  }
+
+  /* ---------- NAV ---------- */
+  header{
+    position:fixed; top:0; left:0; right:0;
+    z-index:100;
+    background:rgba(239,233,220,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--paper-line);
+  }
+  nav.wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height:84px;
+  }
+  .brand{
+    font-family:'Fraunces', serif;
+    font-size:1.25rem;
+    font-weight:500;
+    color:var(--ink);
+    letter-spacing:0.01em;
+  }
+  .brand em{
+    font-style:italic;
+    color:var(--oxblood);
+  }
+  .nav-links{
+    display:flex; gap:40px;
+    font-size:0.92rem;
+    font-weight:500;
+  }
+  .nav-links a{
+    position:relative;
+    padding:4px 0;
+    color:var(--ink);
+  }
+  .nav-links a::after{
+    content:"";
+    position:absolute; left:0; bottom:-2px;
+    width:0; height:1px;
+    background:var(--oxblood);
+    transition:width .25s ease;
+  }
+  .nav-links a:hover::after{width:100%;}
+
+  .nav-cta{
+    background:var(--ink);
+    color:var(--cream-text);
+    padding:11px 22px;
+    border-radius:2px;
+    font-size:0.85rem;
+    font-weight:500;
+    letter-spacing:0.02em;
+  }
+  .nav-cta:hover{background:var(--oxblood);}
+
+  .menu-toggle{display:none; background:none; border:none; cursor:pointer; padding:8px;}
+  .menu-toggle span{display:block; width:24px; height:2px; background:var(--ink); margin:5px 0;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height:100svh;
+    display:flex; align-items:center;
+    padding-top:84px;
+    background:
+      radial-gradient(ellipse 900px 500px at 85% 15%, rgba(168,130,60,0.10), transparent 60%),
+      var(--ink);
+    color:var(--cream-text);
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,0.025) 40px);
+    pointer-events:none;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.15fr 0.85fr;
+    gap:60px;
+    align-items:center;
+    width:100%;
+  }
+  .hero-eyebrow{
+    display:flex; align-items:center; gap:14px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--brass);
+    margin-bottom:28px;
+    opacity:0;
+    animation:riseIn .8s ease forwards .1s;
+  }
+  .hero-eyebrow::before{
+    content:"";
+    width:36px; height:1px;
+    background:var(--brass);
+  }
+  .hero h1{
+    font-size:clamp(2.6rem, 5.2vw, 4.4rem);
+    color:var(--cream-text);
+    font-weight:500;
+    opacity:0;
+    animation:riseIn .8s ease forwards .25s;
+  }
+  .hero h1 .accent{
+    font-style:italic;
+    color:var(--brass);
+  }
+  .hero p.lead{
+    margin-top:26px;
+    font-size:1.1rem;
+    max-width:46ch;
+    color:#C9CDD9;
+    opacity:0;
+    animation:riseIn .8s ease forwards .4s;
+  }
+  .hero-actions{
+    margin-top:40px;
+    display:flex; gap:16px; flex-wrap:wrap;
+    opacity:0;
+    animation:riseIn .8s ease forwards .55s;
+  }
+  .btn-primary{
+    background:var(--oxblood);
+    color:var(--cream-text);
+    padding:15px 28px;
+    border-radius:2px;
+    font-weight:500;
+    font-size:0.95rem;
+    display:inline-block;
+    border:1px solid var(--oxblood);
+    transition:background .2s ease;
+  }
+  .btn-primary:hover{background:var(--oxblood-soft);}
+  .btn-ghost{
+    padding:15px 28px;
+    border-radius:2px;
+    font-weight:500;
+    font-size:0.95rem;
+    border:1px solid rgba(243,238,225,0.35);
+    color:var(--cream-text);
+    transition:border-color .2s ease, background .2s ease;
+  }
+  .btn-ghost:hover{border-color:var(--brass); background:rgba(168,130,60,0.08);}
+
+  @keyframes riseIn{
+    from{opacity:0; transform:translateY(16px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+
+  /* hero seal graphic */
+  .hero-seal{
+    display:flex; justify-content:center; align-items:center;
+    opacity:0;
+    animation:sealIn 1s cubic-bezier(.2,.8,.2,1) forwards .5s;
+  }
+  @keyframes sealIn{
+    from{opacity:0; transform:scale(1.4) rotate(-14deg);}
+    to{opacity:1; transform:scale(1) rotate(-8deg);}
+  }
+  .hero-seal svg{width:min(280px, 80%); height:auto;}
+
+  /* ---------- SECTION SCAFFOLDING ---------- */
+  section{padding:120px 0;}
+  .section-head{
+    display:flex; align-items:flex-start; gap:24px;
+    margin-bottom:64px;
+    max-width:720px;
+  }
+  .section-head h2{font-size:clamp(1.9rem, 3vw, 2.6rem);}
+  .section-head .stamp-badge{margin-top:4px;}
+  .section-kicker{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--oxblood);
+    margin-bottom:10px;
+    display:block;
+  }
+
+  .reveal{
+    opacity:0; transform:translateY(24px);
+    transition:opacity .7s ease, transform .7s ease;
+  }
+  .reveal.is-visible{opacity:1; transform:translateY(0);}
+
+  /* ---------- PRACTICE AREAS (ARTICLES) ---------- */
+  .articles{
+    background:var(--parchment);
+  }
+  .article-list{
+    border-top:1px solid var(--paper-line);
+  }
+  .article-item{
+    display:grid;
+    grid-template-columns:110px 1fr 1fr;
+    gap:32px;
+    padding:38px 0;
+    border-bottom:1px solid var(--paper-line);
+    align-items:start;
+  }
+  .article-num{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.85rem;
+    color:var(--oxblood);
+    padding-top:4px;
+  }
+  .article-item h3{
+    font-size:1.4rem;
+  }
+  .article-item p{
+    color:#4A473F;
+    font-size:0.98rem;
+  }
+  .article-item:hover{background:rgba(122,35,32,0.03);}
+
+  @media (max-width:760px){
+    .article-item{grid-template-columns:1fr; gap:10px;}
+  }
+
+  /* ---------- ABOUT / ATTORNEYS ---------- */
+  .about{
+    background:var(--ink);
+    color:var(--cream-text);
+  }
+  .about .section-kicker{color:var(--brass);}
+  .about h2{color:var(--cream-text);}
+  .about p{color:#C9CDD9;}
+
+  .team-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:28px;
+    margin-top:56px;
+  }
+  .team-card{
+    background:var(--ink-soft);
+    border:1px solid rgba(168,130,60,0.25);
+    padding:28px;
+    border-radius:2px;
+  }
+  .team-photo{
+    width:100%;
+    aspect-ratio:4/5;
+    background:
+      linear-gradient(160deg, rgba(168,130,60,0.18), rgba(122,35,32,0.15));
+    border:1px solid rgba(243,238,225,0.15);
+    margin-bottom:20px;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.75rem;
+    color:rgba(243,238,225,0.5);
+    text-align:center;
+    letter-spacing:0.05em;
+  }
+  .team-card h3{color:var(--cream-text); font-size:1.15rem;}
+  .team-role{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.75rem;
+    color:var(--brass);
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    margin:6px 0 14px;
+  }
+  .team-card p{font-size:0.92rem;}
+
+  @media (max-width:900px){
+    .team-grid{grid-template-columns:repeat(2, 1fr);}
+  }
+  @media (max-width:620px){
+    .team-grid{grid-template-columns:1fr;}
+  }
+
+  /* ---------- STATS / WHY US ---------- */
+  .stats{
+    background:var(--parchment-deep);
+    border-top:1px solid var(--paper-line);
+    border-bottom:1px solid var(--paper-line);
+  }
+  .stats-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:32px;
+  }
+  .stat-item{
+    border-left:1px solid var(--paper-line);
+    padding-left:22px;
+  }
+  .stat-num{
+    font-family:'Fraunces', serif;
+    font-size:2.6rem;
+    color:var(--oxblood);
+    font-weight:500;
+  }
+  .stat-label{
+    font-size:0.88rem;
+    color:#5A5748;
+    margin-top:6px;
+  }
+  @media (max-width:800px){
+    .stats-grid{grid-template-columns:repeat(2, 1fr); gap:40px 24px;}
+  }
+
+  /* ---------- TESTIMONIALS ---------- */
+  .testimonials{background:var(--parchment);}
+  .testi-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:28px;
+  }
+  .testi-card{
+    background:#fff;
+    border:1px solid var(--paper-line);
+    padding:32px;
+    position:relative;
+  }
+  .testi-mark{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:3rem;
+    color:var(--brass);
+    line-height:0.4;
+    display:block;
+    margin-bottom:18px;
+  }
+  .testi-card p{font-size:0.95rem; color:#403D36;}
+  .testi-name{
+    margin-top:22px;
+    font-weight:600;
+    font-size:0.9rem;
+    color:var(--ink);
+  }
+  .testi-case{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    color:var(--oxblood);
+    margin-top:2px;
+  }
+  @media (max-width:900px){
+    .testi-grid{grid-template-columns:1fr; }
+  }
+
+  /* ---------- CONTACT ---------- */
+  .contact{
+    background:var(--ink);
+    color:var(--cream-text);
+  }
+  .contact .section-kicker{color:var(--brass);}
+  .contact h2{color:var(--cream-text);}
+  .contact-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:64px;
+    margin-top:20px;
+  }
+  .contact-info p{color:#C9CDD9; max-width:42ch; margin-bottom:32px;}
+  .info-row{
+    display:flex; gap:16px;
+    padding:16px 0;
+    border-bottom:1px solid rgba(243,238,225,0.12);
+  }
+  .info-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--brass);
+    width:110px;
+    flex-shrink:0;
+    padding-top:2px;
+  }
+  .info-value{color:var(--cream-text); font-size:0.98rem;}
+
+  form{display:flex; flex-direction:column; gap:18px;}
+  .field label{
+    display:block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--brass);
+    margin-bottom:8px;
+  }
+  .field input, .field textarea, .field select{
+    width:100%;
+    background:transparent;
+    border:none;
+    border-bottom:1px solid rgba(243,238,225,0.3);
+    color:var(--cream-text);
+    padding:10px 2px;
+    font-family:'Inter', sans-serif;
+    font-size:0.98rem;
+  }
+  .field select option{color:var(--charcoal);}
+  .field input:focus, .field textarea:focus, .field select:focus{
+    outline:none;
+    border-color:var(--brass);
+  }
+  .field textarea{resize:vertical; min-height:90px;}
+  form .btn-primary{
+    align-self:flex-start;
+    border:none; cursor:pointer;
+    margin-top:8px;
+  }
+
+  @media (max-width:820px){
+    .contact-grid{grid-template-columns:1fr; gap:40px;}
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background:#161C2B;
+    color:#8890A6;
+    padding:48px 0 32px;
+    font-size:0.85rem;
+  }
+  .footer-top{
+    display:flex; justify-content:space-between; align-items:flex-start;
+    flex-wrap:wrap; gap:24px;
+    padding-bottom:32px;
+    border-bottom:1px solid rgba(243,238,225,0.08);
+  }
+  .footer-brand{
+    font-family:'Fraunces', serif;
+    color:var(--cream-text);
+    font-size:1.1rem;
+  }
+  .footer-links{display:flex; gap:28px; flex-wrap:wrap;}
+  .footer-bottom{
+    display:flex; justify-content:space-between;
+    padding-top:24px;
+    flex-wrap:wrap; gap:12px;
+  }
+
+  /* ---------- MOBILE NAV ---------- */
+  @media (max-width:900px){
+    .nav-links{
+      position:fixed; top:84px; left:0; right:0;
+      background:var(--parchment);
+      flex-direction:column;
+      gap:0;
+      border-bottom:1px solid var(--paper-line);
+      transform:translateY(-120%);
+      transition:transform .3s ease;
+    }
+    .nav-links.open{transform:translateY(0);}
+    .nav-links a{padding:18px 32px; border-bottom:1px solid var(--paper-line); width:100%;}
+    .nav-links a::after{display:none;}
+    .nav-cta{display:none;}
+    .menu-toggle{display:block;}
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-seal{order:-1;}
+  }
+
+</style>
+</head>
+<body>
+
+<!-- SVG filter used for the stamp/ink-texture signature element -->
+<svg width="0" height="0" style="position:absolute">
+  <filter id="inkTexture">
+    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" result="noise" seed="7"/>
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.5"/>
+  </filter>
+</svg>
+
+<header>
+  <nav class="wrap">
+    <a href="#" class="brand">Despacho Jurídico <em>Herrera</em></a>
+    <div class="nav-links" id="navLinks">
+      <a href="#areas">Áreas de práctica</a>
+      <a href="#nosotros">Nosotros</a>
+      <a href="#casos">Casos</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+    <div style="display:flex; align-items:center; gap:12px;">
+      <a href="#contacto" class="nav-cta">Agendar consulta</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="hero-eyebrow">Despacho Jurídico Herrera · Est. [AÑO]</span>
+      <h1>Artículo primero.<br>Su caso es <span class="accent">nuestra causa</span>.</h1>
+      <p class="lead">
+        [Texto de marcador: una o dos frases que resuman la filosofía del despacho —
+        por ejemplo, especialidad, años de experiencia o el tipo de clientes que atienden.]
+      </p>
+      <div class="hero-actions">
+        <a href="#contacto" class="btn-primary">Agendar consulta</a>
+        <a href="#areas" class="btn-ghost">Ver áreas de práctica</a>
+      </div>
+    </div>
+    <div class="hero-seal" aria-hidden="true">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" filter="url(#inkTexture)">
+        <circle cx="100" cy="100" r="92" fill="none" stroke="#A8823C" stroke-width="2"/>
+        <circle cx="100" cy="100" r="78" fill="none" stroke="#A8823C" stroke-width="1"/>
+        <path id="sealCircleTop" d="M 30,100 A 70,70 0 0,1 170,100" fill="none"/>
+        <text font-family="IBM Plex Mono, monospace" font-size="10.5" letter-spacing="3" fill="#A8823C">
+          <textPath href="#sealCircleTop" startOffset="50%" text-anchor="middle">DESPACHO JURÍDICO HERRERA</textPath>
+        </text>
+        <path id="sealCircleBot" d="M 30,100 A 70,70 0 0,0 170,100" fill="none"/>
+        <text font-family="IBM Plex Mono, monospace" font-size="10.5" letter-spacing="3" fill="#A8823C">
+          <textPath href="#sealCircleBot" startOffset="50%" text-anchor="middle">EX AEQUO ET BONO</textPath>
+        </text>
+        <line x1="70" y1="115" x2="130" y2="115" stroke="#F3EEE1" stroke-width="1.4"/>
+        <line x1="78" y1="105" x2="122" y2="105" stroke="#F3EEE1" stroke-width="1.4"/>
+        <path d="M100 60 L100 130 M78 78 L122 78 M78 78 L70 100 L86 100 Z M122 78 L114 100 L130 100 Z" stroke="#F3EEE1" stroke-width="1.6" fill="none"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PRACTICE AREAS ================= -->
+<section class="articles" id="areas">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="stamp-badge">I—V</div>
+      <div>
+        <span class="section-kicker">Capítulo I</span>
+        <h2>Áreas de práctica</h2>
+      </div>
+    </div>
+
+    <div class="article-list reveal">
+      <div class="article-item">
+        <div class="article-num">Art. 01</div>
+        <h3>Derecho Civil</h3>
+        <p>[Descripción breve del servicio: qué tipo de asuntos civiles atiende el despacho — contratos, propiedad, responsabilidad civil, etc.]</p>
+      </div>
+      <div class="article-item">
+        <div class="article-num">Art. 02</div>
+        <h3>Derecho Corporativo</h3>
+        <p>[Descripción breve: constitución de empresas, fusiones, gobierno corporativo, cumplimiento normativo.]</p>
+      </div>
+      <div class="article-item">
+        <div class="article-num">Art. 03</div>
+        <h3>Derecho Familiar</h3>
+        <p>[Descripción breve: divorcios, custodia, pensiones alimenticias, sucesiones y testamentos.]</p>
+      </div>
+      <div class="article-item">
+        <div class="article-num">Art. 04</div>
+        <h3>Derecho Laboral</h3>
+        <p>[Descripción breve: despidos, negociación colectiva, cumplimiento laboral para empleadores y trabajadores.]</p>
+      </div>
+      <div class="article-item">
+        <div class="article-num">Art. 05</div>
+        <h3>Litigio y Arbitraje</h3>
+        <p>[Descripción breve: representación ante tribunales, mecanismos alternativos de solución de controversias.]</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= STATS ================= -->
+<section class="stats">
+  <div class="wrap stats-grid reveal">
+    <div class="stat-item">
+      <div class="stat-num">[XX]</div>
+      <div class="stat-label">Años de experiencia</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">[XXX]</div>
+      <div class="stat-label">Casos resueltos</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">[XX]</div>
+      <div class="stat-label">Abogados asociados</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">[XX]%</div>
+      <div class="stat-label">Tasa de casos favorables</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ABOUT / TEAM ================= -->
+<section class="about" id="nosotros">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="stamp-badge" style="border-color:var(--brass); color:var(--brass);">II</div>
+      <div>
+        <span class="section-kicker">Capítulo II</span>
+        <h2>Quiénes somos</h2>
+        <p style="margin-top:18px; max-width:60ch;">
+          [Texto de marcador: historia del despacho, misión, valores y enfoque hacia los clientes.
+          Ideal 3-4 líneas.]
+        </p>
+      </div>
+    </div>
+
+    <div class="team-grid reveal">
+      <div class="team-card">
+        <div class="team-photo">FOTO<br>[Nombre Apellido]</div>
+        <h3>Lic. [Nombre Apellido]</h3>
+        <div class="team-role">Socio fundador</div>
+        <p>[Especialidad y breve trayectoria profesional.]</p>
+      </div>
+      <div class="team-card">
+        <div class="team-photo">FOTO<br>[Nombre Apellido]</div>
+        <h3>Lic. [Nombre Apellido]</h3>
+        <div class="team-role">Socia · Derecho Corporativo</div>
+        <p>[Especialidad y breve trayectoria profesional.]</p>
+      </div>
+      <div class="team-card">
+        <div class="team-photo">FOTO<br>[Nombre Apellido]</div>
+        <h3>Lic. [Nombre Apellido]</h3>
+        <div class="team-role">Asociado · Litigio</div>
+        <p>[Especialidad y breve trayectoria profesional.]</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TESTIMONIALS ================= -->
+<section class="testimonials" id="casos">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="stamp-badge">III</div>
+      <div>
+        <span class="section-kicker">Capítulo III</span>
+        <h2>Lo que dicen nuestros clientes</h2>
+      </div>
+    </div>
+
+    <div class="testi-grid reveal">
+      <div class="testi-card">
+        <span class="testi-mark">&ldquo;</span>
+        <p>[Testimonio de marcador: comentario breve del cliente sobre la atención y el resultado obtenido.]</p>
+        <div class="testi-name">[Nombre del cliente]</div>
+        <div class="testi-case">Exp. [000/AÑO] · Derecho Civil</div>
+      </div>
+      <div class="testi-card">
+        <span class="testi-mark">&ldquo;</span>
+        <p>[Testimonio de marcador: comentario breve del cliente sobre la atención y el resultado obtenido.]</p>
+        <div class="testi-name">[Nombre del cliente]</div>
+        <div class="testi-case">Exp. [000/AÑO] · Derecho Corporativo</div>
+      </div>
+      <div class="testi-card">
+        <span class="testi-mark">&ldquo;</span>
+        <p>[Testimonio de marcador: comentario breve del cliente sobre la atención y el resultado obtenido.]</p>
+        <div class="testi-name">[Nombre del cliente]</div>
+        <div class="testi-case">Exp. [000/AÑO] · Derecho Familiar</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section class="contact" id="contacto">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="stamp-badge" style="border-color:var(--brass); color:var(--brass);">IV</div>
+      <div>
+        <span class="section-kicker">Capítulo IV</span>
+        <h2>Agende su consulta</h2>
+      </div>
+    </div>
+
+    <div class="contact-grid reveal">
+      <div class="contact-info">
+        <p>[Texto de marcador: invitación breve a contactar al despacho para una primera consulta.]</p>
+        <div class="info-row">
+          <div class="info-label">Dirección</div>
+          <div class="info-value">[Calle, número, colonia, ciudad, C.P.]</div>
+        </div>
+        <div class="info-row">
+          <div class="info-label">Teléfono</div>
+          <div class="info-value">[+52 XX XXXX XXXX]</div>
+        </div>
+        <div class="info-row">
+          <div class="info-label">Correo</div>
+          <div class="info-value">[contacto@despachoherrera.com]</div>
+        </div>
+        <div class="info-row">
+          <div class="info-label">Horario</div>
+          <div class="info-value">[Lunes a viernes, 9:00–18:00 hrs]</div>
+        </div>
+      </div>
+
+      <form>
+        <div class="field">
+          <label for="nombre">Nombre completo</label>
+          <input type="text" id="nombre" name="nombre" placeholder="Su nombre" required>
+        </div>
+        <div class="field">
+          <label for="correo">Correo electrónico</label>
+          <input type="email" id="correo" name="correo" placeholder="su@correo.com" required>
+        </div>
+        <div class="field">
+          <label for="area">Área de interés</label>
+          <select id="area" name="area">
+            <option>Derecho Civil</option>
+            <option>Derecho Corporativo</option>
+            <option>Derecho Familiar</option>
+            <option>Derecho Laboral</option>
+            <option>Litigio y Arbitraje</option>
+            <option>Otro</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="mensaje">Mensaje</label>
+          <textarea id="mensaje" name="mensaje" placeholder="Describa brevemente su caso"></textarea>
+        </div>
+        <button type="submit" class="btn-primary">Enviar solicitud</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">Despacho Jurídico Herrera</div>
+      <div class="footer-links">
+        <a href="#areas">Áreas de práctica</a>
+        <a href="#nosotros">Nosotros</a>
+        <a href="#casos">Casos</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© [AÑO] Despacho Jurídico Herrera. Todos los derechos reservados.</span>
+      <span>Aviso de privacidad · Términos y condiciones</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Menú móvil
+  const menuToggle = document.getElementById('menuToggle');
+  const navLinks = document.getElementById('navLinks');
+  menuToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+  });
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => navLinks.classList.remove('open'));
+  });
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
